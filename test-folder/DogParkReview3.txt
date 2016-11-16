@@ -1,0 +1,46 @@
+*Leave Feedback*
+Prototype A
+* A little unclear on leaving feedback button
+* 4/5 ease
+* 4/5 satisfying
+
+Prototype B
+* A little unclear on how to leave a feedback from services page
+* “There’s no button”
+* 3/5 ease
+* 4/5 satisfying
+
+
+*Create an Event*
+Prototype A
+* Extremely Straightforward
+* 4/5 ease
+* 4/5 satisfying
+
+Prototype B
+* Create event public/private doesn’t show up when you scroll down
+* Liked the map for events page
+* 4/5 ease
+* 3/5 satisfying
+
+*Comparing*
+* Prototype A was extremely simple, very intuitive
+   * not as interesting to look at
+* Prototype B was a little bit confusing
+* Prototype A
+   * 5/5 ease
+   * 5/5 satisfying
+   * 5/5 use again
+   * 5/5 recommend
+* Prototype B
+   * 4/5 ease
+   * 4/5 satisfying
+   * 5/5 use again
+   * 4/5 recommend
+* Preferred Prototype A
+   * Super easy, very quick interaction
+* Disliked most: Kind of bored by interaction, particularly with Prototype A, but also with B
+* Like most: everything was easy to find
+   * expect for leaving a review on Prototype B
+* Add more graphics, make it more interesting
+* No suggestions for making it better (edited)
