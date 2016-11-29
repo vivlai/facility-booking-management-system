@@ -200,6 +200,10 @@ public class BookingDao {
         return null;
 	}
 	
+	public ArrayList<Booking> getBookingsByPerson(int id) {
+		return null;
+	}
+	
 	public void updateBooking(Booking booking) {
 		Connection conn = null;
 		PreparedStatement preparedStatement = null;
