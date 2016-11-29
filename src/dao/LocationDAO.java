@@ -57,7 +57,7 @@ public class LocationDao {
 		
         try {
         	conn = DBUtil.getConnection();
-        	String query = "delete from location where id = ?";
+        	String query = "delete from location where id=?";
             preparedStatement = conn.prepareStatement( query, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt( 1, location.getId() );
             preparedStatement.executeUpdate();
@@ -129,8 +129,9 @@ public class LocationDao {
 		
         try {
         	conn = DBUtil.getConnection();
-        	String query = "select * from location where id = ?";
+        	String query = "select * from location where id=?";
             preparedStatement = conn.prepareStatement( query, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setInt( 1, id );
             rs = preparedStatement.executeQuery();
             if (rs.next()) {
             	int locationId = rs.getInt(1);

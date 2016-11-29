@@ -59,7 +59,7 @@ public class PersonDao {
 		
         try {
         	conn = DBUtil.getConnection();
-        	String query = "delete from person where id = ?";
+        	String query = "delete from person where id=?";
             preparedStatement = conn.prepareStatement( query, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt( 1, person.getId() );
             preparedStatement.executeUpdate();
@@ -134,8 +134,9 @@ public class PersonDao {
 		
         try {
         	conn = DBUtil.getConnection();
-        	String query = "select * from person where email = ?";
+        	String query = "select * from person where email=?";
             preparedStatement = conn.prepareStatement( query, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString( 1, email );
             rs = preparedStatement.executeQuery();
             if (rs.next()) {
             	int personId = rs.getInt(1);
@@ -174,8 +175,52 @@ public class PersonDao {
 	}
 	
 	public ArrayList<Person> getPersonsByBooking(int id) {
+		Connection conn = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		ArrayList<Person> persons = new ArrayList<Person>();
 		
-		return null;
+        try {
+        	conn = DBUtil.getConnection();
+        	// to-do: check query again
+        	String query = "select * from person_booking a, person b where a.bookingId = b.id";
+            preparedStatement = conn.prepareStatement( query, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setInt( 1, id ); // to-do
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+            	int personId = rs.getInt(1);
+            	Person person = new Person( 
+            			personId, 
+            			rs.getString(2), 
+            			rs.getString(3), 
+            			rs.getString(4), 
+            			BookingDao.getInstance().getBookingsByPerson(personId)
+            	);
+            	persons.add(person);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+        	try {
+        		if (rs != null) rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        	
+        	try {
+        		if (preparedStatement != null) preparedStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        	
+        	try {
+        		if (conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        }
+		
+        return persons;
 	}
 
 }

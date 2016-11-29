@@ -201,7 +201,52 @@ public class BookingDao {
 	}
 	
 	public ArrayList<Booking> getBookingsByPerson(int id) {
-		return null;
+		Connection conn = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		ArrayList<Booking> bookings = new ArrayList<Booking>();
+		
+        try {
+        	conn = DBUtil.getConnection();
+        	// to-do: check query again
+        	String query = "select * from person_booking a, person b where a.bookingId = b.id";
+            preparedStatement = conn.prepareStatement( query, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setInt( 1, id ); // to-do
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+            	int bookingId = rs.getInt(1);
+            	Booking booking = new Booking( 
+            			bookingId, 
+            			rs.getDate(2), 
+            			rs.getDate(3), 
+            			PersonDao.getInstance().getPersonsByBooking(bookingId),
+            			LocationDao.getInstance().getLocation( rs.getInt(4) )
+            	);
+            	bookings.add(booking);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+        	try {
+        		if (rs != null) rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        	
+        	try {
+        		if (preparedStatement != null) preparedStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        	
+        	try {
+        		if (conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        }
+		
+        return bookings;
 	}
 	
 	public void updateBooking(Booking booking) {
