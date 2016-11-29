@@ -1,11 +1,18 @@
 package model;
 
-import java.util.ArrayList;
-
 public class Location {
+	private int id;
 	private String locationName;
-	private ArrayList<Booking> bookings;
 	
+	public Location(int id, String locationName) {
+		this.id = id;
+		this.locationName = locationName;
+	}
+
+	public int getId() {
+		return id;
+	}
+
 	public String getLocationName() {
 		return locationName;
 	}
@@ -13,14 +20,5 @@ public class Location {
 	public void setLocationName(String locationName) {
 		this.locationName = locationName;
 	}
-	
-	public ArrayList<Booking> getBookings() {
-		return bookings;
-	}
-	
-	public void setBookings(ArrayList<Booking> bookings) {
-		this.bookings = bookings;
-	}
-	
 	
 }

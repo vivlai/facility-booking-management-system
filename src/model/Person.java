@@ -1,12 +1,27 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Person {
+public class Person implements Serializable {
+	
+	private int id;
 	private String email;
 	private String password;
 	private String role;
 	private ArrayList<Booking> bookings;
+	
+	public Person(int id, String email, String password, String role, ArrayList<Booking> bookings) {
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.role = role;
+		this.bookings = bookings;
+	}
+	
+	public int getId() {
+		return id;
+	}
 	
 	public String getEmail() {
 		return email;
