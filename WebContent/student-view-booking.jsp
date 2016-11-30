@@ -48,41 +48,35 @@
   
   <div class="container">
     <div class="span12">
-      <h2>Make a Booking</h2><br>
-        <form action="AddBookingController" method="post">
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="form-group">
-                <div class="input-group date" id="startDate">
-                  <input type="text" class="form-control" name="startDate"/>
-                    <span class="input-group-addon">
-                      <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div><br>
-            
-                <div class="input-group date" id="endDate">
-                  <input type="text" class="form-control" name="endDate"/>
-                    <span class="input-group-addon">
-                      <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-               </div>
-            </div>
-           </div>
-            
-          <label>Location: </label> <select name="location">
-          <% for (Location location : LocationDao.getInstance().getAllLocations()) { %>
-            <option value="<%=location.getId()%>"><%=location.getLocationName()%></option> 
-          <% } %>
-          </select> <br/>
-          
-          <label>Additional Persons:</label> (comma separated email list) <input type="text" name="persons"/>
-          
-          <br><br>
-          <button class="btn btn-primary">Submit</button><br>
-        </form>
-
-
+      <h2>Booking Confirmation</h2><br>
+        <% String id = request.getParameter("id"); %>
+        <% String startDate = request.getParameter("startDate"); %>
+        <% String endDate = request.getParameter("endDate"); %>
+        <% String location = request.getParameter("location"); %>
+        <% if (id == null) %>
+        
+        <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Location</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%=id %></td>
+            <td><%=startDate %></td>
+            <td><%=endDate %></td>
+            <td><%=location %></td>
+            <td><button class="btn btn-info" id="editBooking"<%=id %>>Edit</button></td>
+            <td><button class="btn btn-danger" id="deleteBooking"<%=id %>>Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
   
@@ -90,26 +84,5 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootflat/2.0.4/js/jquery.fs.selecter.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootflat/2.0.4/js/jquery.fs.stepper.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
-  <script>
-  	$(function() {
-      var sd;
-      var ed;
-  	  $("#startDate").datetimepicker().on("dp.change", function(e) {
-  		  sd = e.date;
-  		  if(ed && sd && ed.diff(sd) < 0) {
-  			$("#startDate").data("DateTimePicker").date(ed);
-  		  };
-  	  });
-  	  $("#endDate").datetimepicker().on("dp.change", function(e) {
-  		  ed = e.date;
-  		  if(ed && sd && ed.diff(sd) < 0) {
-  			$("#endDate").data("DateTimePicker").date(sd);
-  		  };
-  	  });;
-  	  
-  	});
-  </script>
 </body>
 </html>

@@ -33,8 +33,8 @@ public class BookingDao {
         	String query = "insert into booking (startDate, endDate, locationId) values (?,?,?)";
             PreparedStatement preparedStatement = conn.prepareStatement( query, Statement.RETURN_GENERATED_KEYS);
             preparedStatements.add(preparedStatement);
-            preparedStatement.setDate( 1, booking.getStartDate() );
-            preparedStatement.setDate( 2, booking.getEndDate() );
+            preparedStatement.setTimestamp( 1, booking.getStartDate() );
+            preparedStatement.setTimestamp( 2, booking.getEndDate() );
             preparedStatement.setInt( 3, booking.getLocation().getId() );
             preparedStatement.executeUpdate();
             
@@ -78,6 +78,7 @@ public class BookingDao {
 				e.printStackTrace();
 			}
         }
+        
     }
 	
 	public void deleteBooking(Booking booking) {
@@ -122,8 +123,8 @@ public class BookingDao {
             	int bookingId = rs.getInt(1);
             	Booking booking = new Booking( 
             			bookingId, 
-            			rs.getDate(2), 
-            			rs.getDate(3), 
+            			rs.getTimestamp(2), 
+            			rs.getTimestamp(3), 
             			PersonDao.getInstance().getPersonsByBooking(bookingId),
             			LocationDao.getInstance().getLocation( rs.getInt(4) )
             	);
@@ -168,8 +169,8 @@ public class BookingDao {
             	int bookingId = rs.getInt(1);
             	Booking booking = new Booking( 
             			bookingId, 
-            			rs.getDate(2), 
-            			rs.getDate(3), 
+            			rs.getTimestamp(2), 
+            			rs.getTimestamp(3), 
             			PersonDao.getInstance().getPersonsByBooking(bookingId),
             			LocationDao.getInstance().getLocation( rs.getInt(4) )
             	);
@@ -249,8 +250,8 @@ public class BookingDao {
         	conn = DBUtil.getConnection();
         	String query = "update booking set startDate=?, endDate=?, locationId=? where id=?";
             preparedStatement = conn.prepareStatement( query, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setDate( 1, booking.getStartDate() );
-            preparedStatement.setDate( 2, booking.getEndDate() );
+            preparedStatement.setTimestamp( 1, booking.getStartDate() );
+            preparedStatement.setTimestamp( 2, booking.getEndDate() );
             preparedStatement.setInt( 3, booking.getLocation().getId() );
             preparedStatement.setInt( 4, booking.getId() );
             preparedStatement.executeUpdate();

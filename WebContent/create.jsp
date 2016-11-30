@@ -13,6 +13,11 @@
     <div class="span12">
       <h2>Facility Booking Management System</h2><br>
       <form action="">
+        <% String errorMessage = request.getParameter("error"); %>
+        <% if (errorMessage != null) { %>
+          <label><%=errorMessage%></label> <br><br>
+        <% } %> 
+        
         <label>Email: </label> <input type="text" name="email" id="email" /><br>
         <label>Password: </label> <input type="password" name="password" id="password" /><br>
         <label>Confirm password: </label> <input type="password" name="confirmPassword" id="confirmPassword" /><br>

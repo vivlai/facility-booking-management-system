@@ -1,16 +1,16 @@
 package model;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.sql.Date;
 
 public class Booking {
 	private int id;
-	private Date startDate;
-	private Date endDate;
+	private Timestamp startDate;
+	private Timestamp endDate;
 	private ArrayList<Person> persons;
 	private Location location;
 	
-	public Booking(int id, Date startDate, Date endDate, ArrayList<Person> persons, Location location) {
+	public Booking(int id, Timestamp startDate, Timestamp endDate, ArrayList<Person> persons, Location location) {
 		this.id = id;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -22,19 +22,19 @@ public class Booking {
 		return id;
 	}
 	
-	public Date getStartDate() {
+	public Timestamp getStartDate() {
 		return startDate;
 	}
 	
-	public void setStartDate(Date startDate) {
+	public void setStartDate(Timestamp startDate) {
 		this.startDate = startDate;
 	}
 	
-	public Date getEndDate() {
+	public Timestamp getEndDate() {
 		return endDate;
 	}
 	
-	public void setEndDate(Date endDate) {
+	public void setEndDate(Timestamp endDate) {
 		this.endDate = endDate;
 	}
 	
