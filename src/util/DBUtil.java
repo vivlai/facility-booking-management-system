@@ -9,12 +9,8 @@ import java.util.Properties;
 import com.mysql.jdbc.Driver;
 
 public class DBUtil {
-    private static Connection conn;
     
     public static Connection getConnection() {
-        if( conn != null )
-            return conn;
- 
         InputStream inputStream = DBUtil.class.getClassLoader().getResourceAsStream( "/db.properties" );
         Properties properties = new Properties();
         try {
@@ -23,8 +19,8 @@ public class DBUtil {
             String url = properties.getProperty( "url" );
             String user = properties.getProperty( "user" );
             String password = properties.getProperty( "password" );
-            Class.forName( "com.mysql.jdbc.Driver" );
-            conn = DriverManager.getConnection( url, user, password );
+            Class.forName( driver );
+            return DriverManager.getConnection( url, user, password );
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("io exception");
@@ -35,8 +31,8 @@ public class DBUtil {
             e.printStackTrace();
             System.out.println("sql exception");
         }
- 
-        return conn;
+        
+        return null;
     }
  
     public static void closeConnection( Connection toBeClosed ) {

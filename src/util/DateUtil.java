@@ -1,15 +1,16 @@
 package util;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class DateUtil {
-	public static Date convertStringToDate(String dateString) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+	public static Timestamp convertStringToTimestamp(String dateString) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm a");
 		
 		try {
-			return new Date(dateFormat.parse(dateString).getTime());
+			Timestamp timestamp = new Timestamp(dateFormat.parse(dateString).getTime());
+			return timestamp;
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
