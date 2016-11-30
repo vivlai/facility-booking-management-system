@@ -38,7 +38,7 @@ public class DeleteBookingController extends HttpServlet {
 	 */
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Load deleting booking from request, not sure if it's the right way to retrive a booking
+
 		int id = request.getSession().getAttribute("bookingId");
 		Booking deletingBooking = (Booking) BookingDao.getInstance().getBooking(id);
 		BookingDao.getInstance().deleteBooking(deletingBooking);	
