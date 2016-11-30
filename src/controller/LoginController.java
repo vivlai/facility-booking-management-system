@@ -41,12 +41,33 @@ public class LoginController extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		Person person = PersonDao.getInstance().getPerson(email);
+		
+		// error checking
+		try {
+			System.out.println(person.getPassword());
+		} catch (NullPointerException e) {
+			System.out.println("nullpointer exception");
+			response.sendRedirect("login.jsp?error=Invalid credentials");
+		    return;
+		}
+		
 		if (!person.getPassword().equals(password)) {
 		    response.sendRedirect("login.jsp?error=Invalid credentials");
 		    return;
 		}
 		
 		request.getSession().setAttribute("user", person);
-		response.sendRedirect("student.jsp");
+		
+		// if student, redirect to student
+		// else redirect to admin
+		System.out.println(person.getRole());
+		if ( person.getRole().equals("student") ) {
+			response.sendRedirect("student.jsp");
+			return;
+		} else {
+			response.sendRedirect("admin.jsp");
+			return;
+		}
+		
 	}
 }
