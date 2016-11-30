@@ -7,9 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import model.Booking;
 import model.Location;
-import model.Person;
 import util.DBUtil;
 
 public class LocationDao {

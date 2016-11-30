@@ -6,9 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
-import model.Booking;
 import model.Person;
 import util.DBUtil;
 
@@ -127,6 +125,53 @@ public class PersonDao {
         return persons;
 	}
 	
+	public Person getPerson(int id) {
+		Connection conn = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		
+        try {
+        	conn = DBUtil.getConnection();
+        	String query = "select * from person where id=?";
+            preparedStatement = conn.prepareStatement( query, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setInt( 1, id );
+            rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+            	int personId = rs.getInt(1);
+            	Person person = new Person( 
+            			personId, 
+            			rs.getString(2), 
+            			rs.getString(3), 
+            			rs.getString(4), 
+            			BookingDao.getInstance().getBookingsByPerson(personId)
+            	);
+            	return person;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+        	try {
+        		if (rs != null) rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        	
+        	try {
+        		if (preparedStatement != null) preparedStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        	
+        	try {
+        		if (conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        }
+		
+        return null;
+	}
+	
 	public Person getPerson(String email) {
 		Connection conn = null;
 		PreparedStatement preparedStatement = null;
@@ -182,20 +227,12 @@ public class PersonDao {
 		
         try {
         	conn = DBUtil.getConnection();
-        	// to-do: check query again
-        	String query = "select * from person_booking a, person b where a.bookingId = b.id";
+        	String query = "select personId from person_booking where bookingId=?";
             preparedStatement = conn.prepareStatement( query, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt( 1, id ); // to-do
+            preparedStatement.setInt( 1, id );
             rs = preparedStatement.executeQuery();
             while (rs.next()) {
-            	int personId = rs.getInt(1);
-            	Person person = new Person( 
-            			personId, 
-            			rs.getString(2), 
-            			rs.getString(3), 
-            			rs.getString(4), 
-            			BookingDao.getInstance().getBookingsByPerson(personId)
-            	);
+            	Person person = getPerson( rs.getInt(1) );
             	persons.add(person);
             }
         } catch (SQLException e) {

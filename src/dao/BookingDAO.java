@@ -208,20 +208,12 @@ public class BookingDao {
 		
         try {
         	conn = DBUtil.getConnection();
-        	// to-do: check query again
-        	String query = "select * from person_booking a, person b where a.bookingId = b.id";
+        	String query = "select bookingId from person_booking where personId=?";
             preparedStatement = conn.prepareStatement( query, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt( 1, id ); // to-do
+            preparedStatement.setInt( 1, id );
             rs = preparedStatement.executeQuery();
             while (rs.next()) {
-            	int bookingId = rs.getInt(1);
-            	Booking booking = new Booking( 
-            			bookingId, 
-            			rs.getDate(2), 
-            			rs.getDate(3), 
-            			PersonDao.getInstance().getPersonsByBooking(bookingId),
-            			LocationDao.getInstance().getLocation( rs.getInt(4) )
-            	);
+            	Booking booking = getBooking( rs.getInt(1) );
             	bookings.add(booking);
             }
         } catch (SQLException e) {
