@@ -35,5 +35,7 @@ CREATE TABLE `person_booking` (
   CONSTRAINT `personId` FOREIGN KEY (`personId`) REFERENCES `person` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `person` (email, password, role) VALUES ('admin@colorado.edu', 'adminpass', 'admin');
+INSERT INTO `person` (email, password, role) VALUES ('student@colorado.edu', 'studentpass', 'student');
 
 
