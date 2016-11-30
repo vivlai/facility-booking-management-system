@@ -101,18 +101,21 @@ public class LocationDao {
         	try {
         		if (rs != null) rs.close();
 			} catch (SQLException e) {
+				System.out.println("rs exception");
 				e.printStackTrace();
 			}
         	
         	try {
         		if (preparedStatement != null) preparedStatement.close();
 			} catch (SQLException e) {
+				System.out.println("prepared statement exception");
 				e.printStackTrace();
 			}
         	
         	try {
         		if (conn != null) conn.close();
 			} catch (SQLException e) {
+				System.out.println("connection exception");
 				e.printStackTrace();
 			}
         }
