@@ -9,14 +9,12 @@ public class Person implements Serializable {
 	private String email;
 	private String password;
 	private String role;
-	private ArrayList<Booking> bookings;
 	
-	public Person(int id, String email, String password, String role, ArrayList<Booking> bookings) {
+	public Person(int id, String email, String password, String role) {
 		this.id = id;
 		this.email = email;
 		this.password = password;
 		this.role = role;
-		this.bookings = bookings;
 	}
 	
 	public int getId() {
@@ -45,13 +43,5 @@ public class Person implements Serializable {
 	
 	public void setRole(String role) {
 		this.role = role;
-	}
-	
-	public ArrayList<Booking> getBookings() {
-		return bookings;
-	}
-	
-	public void setBookings(ArrayList<Booking> bookings) {
-		this.bookings = bookings;
 	}
 }

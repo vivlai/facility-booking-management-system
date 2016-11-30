@@ -95,8 +95,7 @@ public class PersonDao {
             			personId, 
             			rs.getString(2), 
             			rs.getString(3), 
-            			rs.getString(4), 
-            			BookingDao.getInstance().getBookingsByPerson(personId)
+            			rs.getString(4)
             	);
             	persons.add(person);
             }
@@ -142,8 +141,7 @@ public class PersonDao {
             			personId, 
             			rs.getString(2), 
             			rs.getString(3), 
-            			rs.getString(4), 
-            			BookingDao.getInstance().getBookingsByPerson(personId)
+            			rs.getString(4)
             	);
             	return person;
             }
@@ -189,8 +187,7 @@ public class PersonDao {
             			personId, 
             			rs.getString(2), 
             			rs.getString(3), 
-            			rs.getString(4), 
-            			BookingDao.getInstance().getBookingsByPerson(personId)
+            			rs.getString(4)
             	);
             	return person;
             }

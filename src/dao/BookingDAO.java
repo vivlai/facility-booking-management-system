@@ -164,6 +164,7 @@ public class BookingDao {
         	conn = DBUtil.getConnection();
         	String query = "select * from booking where id = ?";
             preparedStatement = conn.prepareStatement( query, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setInt(1, id);
             rs = preparedStatement.executeQuery();
             if (rs.next()) {
             	int bookingId = rs.getInt(1);
@@ -215,6 +216,8 @@ public class BookingDao {
             rs = preparedStatement.executeQuery();
             while (rs.next()) {
             	Booking booking = getBooking( rs.getInt(1) );
+            	System.out.println(rs.getInt(1)); // <-- print ID
+            	System.out.println(booking);
             	bookings.add(booking);
             }
         } catch (SQLException e) {

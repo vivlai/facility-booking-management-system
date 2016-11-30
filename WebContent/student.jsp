@@ -1,3 +1,15 @@
+<%@page import="javax.servlet.ServletException"%>
+<%@page import="javax.servlet.annotation.WebServlet"%>
+<%@page import="javax.servlet.http.HttpServlet"%>
+<%@page import="javax.servlet.http.HttpServletRequest"%>
+<%@page import="javax.servlet.http.HttpServletResponse"%>
+<%@page import="java.util.ArrayList" %>
+<%@page import="model.Booking"%>
+<%@page import="model.Location"%>
+<%@page import="model.Person"%>
+<%@page import="dao.PersonDao"%>
+<%@page import="dao.BookingDao"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -44,60 +56,41 @@
   <div class="container">
     <div class="span12">
       <h2>My Bookings</h2><br>
+      <% 
+      if (request.getSession().getAttribute("user") == null) {
+        response.sendRedirect("login.jsp?error=Invalid credentials");
+		return;
+      } 
+  	  
+      Person person = (Person) request.getSession().getAttribute("user");
+      int personId = person.getId();
+      ArrayList<Booking> bookings = BookingDao.getInstance().getBookingsByPerson(personId);
+      
+      %>
+      
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>#</th>
-            <th>Date</th>
-            <th>Day</th>
-            <th>Start Time</th>
-            <th>End Time</th>
+            <th>Booking ID</th>
+            <th>Start Date</th>
+            <th>End Date</th>
             <th>Location</th>
             <th></th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>11/15/16</td>
-            <td>Tuesday</td>
-            <td>9:00</td>
-            <td>10:00</td>
-            <td>Norlin</td>
-            <td><button class="btn btn-info">Edit</button></td>
-            <td><button class="btn btn-danger">Delete</button></td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>11/16/16</td>
-            <td>Wednesday</td>
-            <td>9:00</td>
-            <td>10:00</td>
-            <td>Math</td>
-            <td><button class="btn btn-info">Edit</button></td>
-            <td><button class="btn btn-danger">Delete</button></td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>11/17/16</td>
-            <td>Thursday</td>
-            <td>9:00</td>
-            <td>10:00</td>
-            <td>Engineering Center</td>
-            <td><button class="btn btn-info">Edit</button></td>
-            <td><button class="btn btn-danger">Delete</button></td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>11/18/16</td>
-            <td>Friday</td>
-            <td>9:00</td>
-            <td>10:00</td>
-            <td>Rec Center</td>
-            <td><button class="btn btn-info">Edit</button></td>
-            <td><button class="btn btn-danger">Delete</button></td>
-          </tr>
+          <% for (Booking booking : bookings) { %>
+          <% Location location = booking.getLocation(); %>
+            <tr>
+              <td><%=booking.getId() %></td>
+              <td><%=booking.getStartDate() %></td>
+              <td><%=booking.getEndDate() %></td>
+              <td><%=location.getLocationName() %></td>
+              <td><button class="btn btn-info" id="editBooking"<%=booking.getId() %>>Edit</button></td>
+              <td><button class="btn btn-danger" id="deleteBooking"<%=booking.getId() %>>Delete</button></td>
+            </tr>
+          <% } %>
         </tbody>
       </table>
 
