@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import com.mysql.jdbc.Driver;
 
 public class DBUtil {
     private static Connection conn;
@@ -22,14 +23,17 @@ public class DBUtil {
             String url = properties.getProperty( "url" );
             String user = properties.getProperty( "user" );
             String password = properties.getProperty( "password" );
-            Class.forName( driver );
+            Class.forName( "com.mysql.jdbc.Driver" );
             conn = DriverManager.getConnection( url, user, password );
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("io exception");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            System.out.println("class not found exception");
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("sql exception");
         }
  
         return conn;
