@@ -33,7 +33,7 @@
          <li class="dropdown">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Actions <span class="caret"></span></a>
            <ul class="dropdown-menu">
-             <li><a href="student-make-booking.jsp">Delete Booking</a></li>
+             <li><a href="student-make-booking.jsp">Make Booking</a></li>
            </ul>
          </li>
        </ul>
@@ -49,11 +49,17 @@
   <div class="container">
     <div class="span12">
       <h2>Booking Confirmation</h2><br>
-        <% String id = request.getParameter("id"); %>
-        <% String startDate = request.getParameter("startDate"); %>
-        <% String endDate = request.getParameter("endDate"); %>
-        <% String location = request.getParameter("location"); %>
-        <% if (id == null) %>
+        <% 
+        String stringId = request.getParameter("id"); 
+    	int bookingId = 0;
+    	if (stringId != null){
+    		bookingId = Integer.parseInt(stringId);
+    	}
+        String startDate = request.getParameter("startDate"); 
+        String endDate = request.getParameter("endDate"); 
+        String location = request.getParameter("location"); 
+        if (stringId == null) 
+        %>
         
         <table class="table table-hover">
         <thead>
@@ -68,12 +74,12 @@
         </thead>
         <tbody>
           <tr>
-            <td><%=id %></td>
+            <td><%=bookingId %></td>
             <td><%=startDate %></td>
             <td><%=endDate %></td>
             <td><%=location %></td>
-            <td><button class="btn btn-info" id="editBooking"<%=id %>>Edit</button></td>
-            <td><button class="btn btn-danger" id="deleteBooking"<%=id %>>Delete</button></td>
+            <td><a href="student-edit-booking.jsp?id="<%=bookingId %> class="btn btn-info">Edit</button></td>
+            <td><button class="btn btn-danger" id="deleteBooking"<%=bookingId %>>Delete</button></td>
           </tr>
         </tbody>
       </table>
