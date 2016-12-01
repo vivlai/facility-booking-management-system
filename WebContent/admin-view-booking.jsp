@@ -24,7 +24,7 @@
          <span class="icon-bar"></span>
          <span class="icon-bar"></span>
        </button>
-       <a class="navbar-brand" href="student.jsp">FBMS</a>
+       <a class="navbar-brand" href="#">FBMS</a>
      </div>
   
      <!-- Collect the nav links, forms, and other content for toggling -->
@@ -33,7 +33,10 @@
          <li class="dropdown">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Actions <span class="caret"></span></a>
            <ul class="dropdown-menu">
-             <li><a href="student-make-booking.jsp">Make Booking</a></li>
+             <li><a href="admin-make-booking.jsp">Make Booking</a></li>
+             <li><a href="#">Add Location</a></li>
+             <li><a href="#">View Location</a></li>
+             <li><a href="#">Delete Student Account</a></li>
            </ul>
          </li>
        </ul>
@@ -75,7 +78,7 @@
             <td><%=startDate %></td>
             <td><%=endDate %></td>
             <td><%=location %></td>
-            <td><a href="student-edit-booking.jsp?id="<%=bookingId %> class="btn btn-info">Edit</button></td>
+            <td><a href="admin-edit-booking.jsp?id="<%=bookingId %> class="btn btn-info">Edit</button></td>
             <td><button class="btn btn-danger" id="deleteBooking"<%=bookingId %>>Delete</button></td>
           </tr>
         </tbody>

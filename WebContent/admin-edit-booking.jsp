@@ -1,5 +1,10 @@
+<%@page import="java.util.ArrayList" %>
+<%@page import="java.sql.Timestamp" %>
+<%@page import="model.Person"%>
+<%@page import="model.Booking"%>
 <%@page import="model.Location"%>
 <%@page import="dao.LocationDao"%>
+<%@page import="dao.BookingDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -24,7 +29,7 @@
          <span class="icon-bar"></span>
          <span class="icon-bar"></span>
        </button>
-       <a class="navbar-brand" href="student.jsp">FBMS</a>
+       <a class="navbar-brand" href="#">FBMS</a>
      </div>
   
      <!-- Collect the nav links, forms, and other content for toggling -->
@@ -33,7 +38,10 @@
          <li class="dropdown">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Actions <span class="caret"></span></a>
            <ul class="dropdown-menu">
-             <li><a href="student-make-booking.jsp">Make Booking</a></li>
+             <li><a href="admin-make-booking.jsp">Make Booking</a></li>
+             <li><a href="#">Add Location</a></li>
+             <li><a href="#">View Location</a></li>
+             <li><a href="#">Delete Student Account</a></li>
            </ul>
          </li>
        </ul>
@@ -48,13 +56,33 @@
   
   <div class="container">
     <div class="span12">
-      <h2>Make a Booking</h2><br>
-        <form action="AddBookingController" method="post">
-          <% String errorMessage = request.getParameter("error"); %>
-          <% if (errorMessage != null) { %>
-            <label><%=errorMessage%></label> <br><br>
-          <%  } %> 
+      <h2>Edit Booking</h2><br>
+        <% 
+        String stringId = request.getParameter("id");
+        int bookingId = Integer.parseInt(stringId);
+        Booking booking = BookingDao.getInstance().getBooking(bookingId);
+        Timestamp startDate = booking.getStartDate();
+        Timestamp endDate = booking.getEndDate();
         
+        ArrayList<Person> persons = booking.getPersons();
+        String list = "";
+        int count = 1;
+        for (Person person : persons) {
+          String email = person.getEmail();
+          if (count == persons.size()) {
+            
+          } else {
+            email = email + ", ";
+          }
+          list += email;
+          count++;
+        }
+        
+        int locationId = booking.getLocation().getId();
+        if (stringId == null) 
+        %>
+        
+        <form action="EditBookingController" method="post">
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
@@ -75,19 +103,18 @@
             </div>
            </div>
             
-          <label>Location: </label> <select name="location">
+          <label>Location: </label> <select id="locationList" name="location">
           <% for (Location location : LocationDao.getInstance().getAllLocations()) { %>
             <option value="<%=location.getId()%>"><%=location.getLocationName()%></option> 
           <% } %>
           </select> <br/>
           
-          <label>Additional Persons:</label> (comma separated email list) <input type="text" name="persons"/>
-          
-          <br><br>
-          <button class="btn btn-primary">Submit</button><br>
-        </form>
-
-
+          <label>Additional Persons:</label> (comma separated email list) <input type="text" name="persons" value="<%=list %>"/>
+        
+          <input type="hidden" name="bookingId" value="<%=bookingId %>"/>
+        <br><br>
+        <button class="btn btn-info" id="editButton">Edit</button>
+       </form>
     </div>
   </div>
   
@@ -98,23 +125,27 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js"></script>
   <script>
-  	$(function() {
+    $("#locationList").val("<%=locationId %>");
+    
+    $(function() {
       var sd;
       var ed;
-  	  $("#startDate").datetimepicker().on("dp.change", function(e) {
-  		  sd = e.date;
-  		  if(ed && sd && ed.diff(sd) < 0) {
-  			$("#startDate").data("DateTimePicker").date(ed);
-  		  };
-  	  });
-  	  $("#endDate").datetimepicker().on("dp.change", function(e) {
-  		  ed = e.date;
-  		  if(ed && sd && ed.diff(sd) < 0) {
-  			$("#endDate").data("DateTimePicker").date(sd);
-  		  };
-  	  });;
-  	  
-  	});
+      $("#startDate").datetimepicker().on("dp.change", function(e) {
+        sd = e.date;
+        if(ed && sd && ed.diff(sd) < 0) {
+        $("#startDate").data("DateTimePicker").date(ed);
+        };
+      });
+      $("#endDate").datetimepicker().on("dp.change", function(e) {
+        ed = e.date;
+        if(ed && sd && ed.diff(sd) < 0) {
+        $("#endDate").data("DateTimePicker").date(sd);
+        };
+      });;
+      
+      $("#startDate").data("DateTimePicker").date( moment("<%=startDate %>", "YYYY-MM-DD hh:mm:ss a") );
+      $("#endDate").data("DateTimePicker").date( moment("<%=endDate %>", "YYYY-MM-DD hh:mm:ss a") );
+    });
   </script>
 </body>
 </html>
