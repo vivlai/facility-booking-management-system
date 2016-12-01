@@ -28,10 +28,11 @@
          <li class="dropdown">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Actions <span class="caret"></span></a>
            <ul class="dropdown-menu">
-             <li><a href="">Make Booking</a></li>
-             <li><a href="#">Add Location</a></li>
+             <li><a href="admin-choose-location.jsp">Make Booking</a></li>
+             <li><a href="admin-add-location.jsp">Add Location</a></li>
              <li><a href="#">View Location</a></li>
-             <li><a href="#">Delete Student Account</a></li>
+             <li><a href="admin-delete-account.jsp">Delete Student Account</a></li>
+             <li><a href="admin-delete-location.jsp">Delete Location</a></li>
            </ul>
          </li>
        </ul>
@@ -47,8 +48,12 @@
   <div class="container">
     <div class="span12">
       <h2>Facility Booking Management System</h2><br>
-      <form action="">
-        <label>Location: </label> <input type="text" name="add-location" id="add-location" /><br>
+      <form action="AddLocationController" method="post">
+        <% String errorMessage = request.getParameter("error"); %>
+        <% if (errorMessage != null) { %>
+        	<label><%=errorMessage%></label> <br><br>
+        <% } %> 
+        <label>Location: </label> <input type="text" name="location" id="location" /><br>
 
         <br><br>
         <a href="admin.jsp" class="btn btn-primary">Cancel</a>

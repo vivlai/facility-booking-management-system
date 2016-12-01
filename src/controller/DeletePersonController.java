@@ -39,6 +39,24 @@ public class DeletePersonController extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		Person loggedInUser = (Person) request.getSession().getAttribute("user");
+		if (loggedInUser == null) {
+			response.sendRedirect("login.jsp?error=You are not logged in");
+			return;
+		}
 		
+		if (loggedInUser.getRole() != "admin" ) {
+			response.sendRedirect("student.jsp?error=You are not admin");
+			return;
+		}
+		
+		String email = request.getParameter("email");
+		Person person = PersonDao.getInstance().getPerson(email);
+		if (person == null) {
+			response.sendRedirect("admin-delete-account.jsp?error=The email " + email + " does not exist.");
+			return;
+		}
+		
+		PersonDao.getInstance().deletePerson(person);
 	}
 }

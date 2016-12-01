@@ -48,12 +48,12 @@
   <div class="container">
     <div class="span12">
       <h2>Facility Booking Management System</h2><br>
-      <form action="DeletePersonController" method="post">
+		<form action="DeleteLocationController" method="post">
         <% String errorMessage = request.getParameter("error"); %>
         <% if (errorMessage != null) { %>
         	<label><%=errorMessage%></label> <br><br>
         <% } %> 
-        <label>Email: </label> <input type="text" name="email" id="email" /><br>
+        <label>Location: </label> <input type="text" name="location" id="location" /><br>
 
         <br><br>
         <a href="admin.jsp" class="btn btn-primary">Cancel</a>
