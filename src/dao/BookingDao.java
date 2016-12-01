@@ -23,7 +23,7 @@ public class BookingDao {
 		return instance;
 	}
 	
-	public void addBooking(Booking booking) {
+	public int addBooking(Booking booking) {
 		Connection conn = null;
 		ArrayList<PreparedStatement> preparedStatements = new ArrayList<PreparedStatement>();
 		ResultSet rs = null;
@@ -55,6 +55,8 @@ public class BookingDao {
                 preparedStatement.setInt( 2, bookingId );
                 preparedStatement.executeUpdate();
             }
+            
+            return bookingId;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -78,7 +80,7 @@ public class BookingDao {
 				e.printStackTrace();
 			}
         }
-        
+        return -1;
     }
 	
 	public void deleteBooking(Booking booking) {
