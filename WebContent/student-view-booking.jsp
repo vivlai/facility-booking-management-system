@@ -51,7 +51,10 @@
       <h2>Booking Confirmation</h2><br>
         <% 
         String stringId = request.getParameter("id"); 
-    	int bookingId = Integer.parseInt(stringId);
+    	int bookingId = 0;
+    	if (stringId != null){
+    	    bookingId = Integer.parseInt(stringId);
+    	}
         String startDate = request.getParameter("startDate"); 
         String endDate = request.getParameter("endDate"); 
         String location = request.getParameter("location"); 
