@@ -1,10 +1,15 @@
+<%@page import="model.Location"%>
+<%@page import="dao.LocationDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootflat/2.0.4/css/bootflat.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker-standalone.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.css">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootflat/2.0.4/css/bootflat.min.css"> -->
   <title>Facility Booking Management System</title>
 </head>
 
@@ -19,7 +24,7 @@
          <span class="icon-bar"></span>
          <span class="icon-bar"></span>
        </button>
-       <a class="navbar-brand" href="#">FBMS</a>
+       <a class="navbar-brand" href="student.jsp">FBMS</a>
      </div>
   
      <!-- Collect the nav links, forms, and other content for toggling -->
@@ -28,11 +33,7 @@
          <li class="dropdown">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Actions <span class="caret"></span></a>
            <ul class="dropdown-menu">
-             <li><a href="admin-choose-location.jsp">Make Booking</a></li>
-             <li><a href="admin-add-location.jsp">Add Location</a></li>
-             <li><a href="#">View Location</a></li>
-             <li><a href="admin-delete-account.jsp">Delete Student Account</a></li>
-             <li><a href="admin-delete-location.jsp">Delete Location</a></li>
+             <li><a href="student-make-booking.jsp">Delete Booking</a></li>
            </ul>
          </li>
        </ul>
@@ -47,18 +48,35 @@
   
   <div class="container">
     <div class="span12">
-      <h2>Facility Booking Management System</h2><br>
-      <form action="DeletePersonController" method="post">
-        <% String errorMessage = request.getParameter("error"); %>
-        <% if (errorMessage != null) { %>
-        	<label><%=errorMessage%></label> <br><br>
-        <% } %> 
-        <label>Email: </label> <input type="text" name="email" id="email" /><br>
-
-        <br><br>
-        <a href="admin.jsp" class="btn btn-primary">Cancel</a>
-        <button class="btn btn-danger">Delete</button><br>
-    </form>
+      <h2>Booking Confirmation</h2><br>
+        <% String id = request.getParameter("id"); %>
+        <% String startDate = request.getParameter("startDate"); %>
+        <% String endDate = request.getParameter("endDate"); %>
+        <% String location = request.getParameter("location"); %>
+        <% if (id == null) %>
+        
+        <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Location</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%=id %></td>
+            <td><%=startDate %></td>
+            <td><%=endDate %></td>
+            <td><%=location %></td>
+            <td><button class="btn btn-info" id="editBooking"<%=id %>>Edit</button></td>
+            <td><button class="btn btn-danger" id="deleteBooking"<%=id %>>Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
   

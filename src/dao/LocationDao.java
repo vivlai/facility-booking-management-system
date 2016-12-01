@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import model.Location;
+import model.Person;
 import util.DBUtil;
 
 public class LocationDao {
@@ -101,21 +102,18 @@ public class LocationDao {
         	try {
         		if (rs != null) rs.close();
 			} catch (SQLException e) {
-				System.out.println("rs exception");
 				e.printStackTrace();
 			}
         	
         	try {
         		if (preparedStatement != null) preparedStatement.close();
 			} catch (SQLException e) {
-				System.out.println("prepared statement exception");
 				e.printStackTrace();
 			}
         	
         	try {
         		if (conn != null) conn.close();
 			} catch (SQLException e) {
-				System.out.println("connection exception");
 				e.printStackTrace();
 			}
         }
@@ -133,6 +131,50 @@ public class LocationDao {
         	String query = "select * from location where id=?";
             preparedStatement = conn.prepareStatement( query, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt( 1, id );
+            rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+            	int locationId = rs.getInt(1);
+            	Location location = new Location( 
+            			locationId, 
+            			rs.getString(2)
+            	);
+            	return location;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+        	try {
+        		if (rs != null) rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        	
+        	try {
+        		if (preparedStatement != null) preparedStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        	
+        	try {
+        		if (conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        }
+		
+        return null;
+	}
+	
+	public Location getLocation(String locationName) {
+		Connection conn = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		
+        try {
+        	conn = DBUtil.getConnection();
+        	String query = "select * from location where locationName=?";
+            preparedStatement = conn.prepareStatement( query, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString( 1, locationName );
             rs = preparedStatement.executeQuery();
             if (rs.next()) {
             	int locationId = rs.getInt(1);

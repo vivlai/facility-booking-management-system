@@ -38,6 +38,26 @@ public class DeleteLocationController extends HttpServlet {
 	 */
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		Person loggedInUser = (Person) request.getSession().getAttribute("user");
+		if (loggedInUser == null) {
+			response.sendRedirect("login.jsp?error=You are not logged in");
+			return;
+		}
+		
+		if (loggedInUser.getRole() != "admin" ) {
+			response.sendRedirect("student.jsp?error=You are not admin");
+			return;
+		}
+		
+		String locationName = request.getParameter("location");
+		Location location = LocationDao.getInstance().getLocation(locationName);
+		if (location == null) {
+			response.sendRedirect("admin-delete-location.jsp?error=The location " + locationName + " does not exist.");
+			return;
+		}
+		
+		
+		LocationDao.getInstance().deleteLocation(location);
 	}
 }
