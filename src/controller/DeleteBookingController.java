@@ -39,7 +39,7 @@ public class DeleteBookingController extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int id = request.getSession().getAttribute("bookingId");
+		int id = (Integer)request.getSession().getAttribute("bookingId");
 		Booking deletingBooking = (Booking) BookingDao.getInstance().getBooking(id);
 		BookingDao.getInstance().deleteBooking(deletingBooking);	
 
