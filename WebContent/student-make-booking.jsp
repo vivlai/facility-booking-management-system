@@ -34,6 +34,7 @@
            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Actions <span class="caret"></span></a>
            <ul class="dropdown-menu">
              <li><a href="student-make-booking.jsp">Make Booking</a></li>
+             <li><a href="student-view-location.jsp">View Locations Schedule</a></li>
            </ul>
          </li>
        </ul>
