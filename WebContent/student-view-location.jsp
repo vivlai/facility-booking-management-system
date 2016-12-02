@@ -4,11 +4,8 @@
 <%@page import="javax.servlet.http.HttpServletRequest"%>
 <%@page import="javax.servlet.http.HttpServletResponse"%>
 <%@page import="java.util.ArrayList" %>
-<%@page import="model.Booking"%>
 <%@page import="model.Location"%>
-<%@page import="model.Person"%>
 <%@page import="dao.LocationDao"%>
-<%@page import="dao.BookingDao"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -56,6 +53,7 @@
   
   <div class="container">
     <div class="span12">
+      <h2>View Location Schedule</h2><br>
       <% 
       if (request.getSession().getAttribute("user") == null) {
         response.sendRedirect("login.jsp?error=Invalid credentials");
@@ -64,31 +62,22 @@
       
       //Person person = (Person) request.getSession().getAttribute("user");
       //int personId = person.getId();
-      String locationStringId = request.getParameter("id");
-      int locationId = Integer.parseInt(locationStringId);
-      ArrayList<Booking> bookings = BookingDao.getInstance().getBookingsByLocation(locationId);
+      ArrayList<Location> locations = LocationDao.getInstance().getAllLocations();
       
       %>
-      <h2><%=LocationDao.getInstance().getLocation(locationId).getLocationName() %> Schedule</h2><br>
-      
       
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>Booking ID</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Location</th>
+            <th>Location ID</th>
+            <th>Location Name</th>
           </tr>
         </thead>
         <tbody>
-          <% for (Booking booking : bookings) { %>
-          <% Location location = booking.getLocation(); %>
+          <% for (Location location : locations) { %>
             <tr>
-              <td><%=booking.getId() %></td>
-              <td><%=booking.getStartDate() %></td>
-              <td><%=booking.getEndDate() %></td>
-              <td><%=location.getLocationName() %></td>
+              <td><%=location.getId() %></td>
+              <td><a href="student-location-schedule.jsp?id=<%=location.getId() %>"><%=location.getLocationName() %></a></td>
             </tr>
           <% } %>
         </tbody>
