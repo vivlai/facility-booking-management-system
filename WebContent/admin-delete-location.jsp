@@ -1,3 +1,5 @@
+<%@page import="model.Location"%>
+<%@page import="dao.LocationDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -47,17 +49,48 @@
   
   <div class="container">
     <div class="span12">
-      <h2>Facility Booking Management System</h2><br>
+      <h2>Delete Location</h2><br>
 		<form action="DeleteLocationController" method="post">
         <% String errorMessage = request.getParameter("error"); %>
         <% if (errorMessage != null) { %>
         	<label><%=errorMessage%></label> <br><br>
         <% } %> 
-        <label>Location: </label> <input type="text" name="location" id="location" /><br>
+        <% String locationIdString = request.getParameter("id");
+           int locationId = Integer.parseInt(locationIdString);
+           Location location = LocationDao.getInstance().getLocation(locationId);	
+        %>
+        			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Location ID</th>
+						<th>Location Name</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><%=location.getId()%></td>
+						<td><a href="location-schedule.jsp?id=<%=location.getId()%>"><%=location.getLocationName()%></a></td>
+					</tr>
+				</tbody>
+			</table>
 
         <br><br>
-        <a href="admin.jsp" class="btn btn-primary">Cancel</a>
-        <button class="btn btn-danger">Delete</button><br>
+			<p>Are you sure you want to delete this location?</p>
+			<form action="DeleteBookingController" method="post">
+				<div class="radio">
+					<label> 
+					  <input type="radio" name="optionsRadios" id="optionsRadios1" value=<%=locationId %> /> Yes, I want to delete this location.
+					</label>
+				</div>
+				<div class="radio">
+					<label> <input type="radio" name="optionsRadios"
+						id="optionsRadios2" value="no" checked> No, I change my
+						mind.
+					</label>
+				</div>
+				<button type="submit" class="btn btn-info">Submit</button>
+			</form>
     </form>
     </div>
   </div>

@@ -45,19 +45,21 @@ public class DeleteLocationController extends HttpServlet {
 			return;
 		}
 		
-		if (loggedInUser.getRole() != "admin" ) {
+		if (!loggedInUser.getRole().equals("admin") ) {
 			response.sendRedirect("student.jsp?error=You are not admin");
 			return;
 		}
 		
-		String locationName = request.getParameter("location");
-		Location location = LocationDao.getInstance().getLocation(locationName);
-		if (location == null) {
-			response.sendRedirect("admin-delete-location.jsp?error=The location " + locationName + " does not exist.");
+		String state = (String) request.getParameter("optionsRadios");
+		System.out.println(state);
+		if (!state.equals("no")) {
+			int id = Integer.parseInt(state);
+			System.out.println("id="+id);
+			Location location = (Location) LocationDao.getInstance().getLocation(id);
+			LocationDao.getInstance().deleteLocation(location);
+			response.sendRedirect("admin-view-location.jsp?message=The location " + location.getLocationName() + " deleted.");
 			return;
 		}
-		
-		
-		LocationDao.getInstance().deleteLocation(location);
+		response.sendRedirect("admin-view-location.jsp");
 	}
 }
