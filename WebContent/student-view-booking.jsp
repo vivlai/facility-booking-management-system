@@ -79,7 +79,7 @@
             <td><%=endDate %></td>
             <td><%=location %></td>
             <td><a href="student-edit-booking.jsp?id=<%=bookingId %>" class="btn btn-info">Edit</button></td>
-            <td><a href="student-delete-booking.jsp?id=<%=bookingId %>" class="btn btn-info">Delete</button></td>
+            <td><a href="student-delete-booking.jsp?id=<%=bookingId %>" class="btn btn-danger">Delete</button></td>
           </tr>
         </tbody>
       </table>

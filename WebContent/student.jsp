@@ -89,7 +89,7 @@
               <td><%=location.getLocationName() %></td>
               <!-- <td><button class="btn btn-info" id="editBooking"<%=booking.getId() %>>Edit</button></td>  -->
               <td><a href="student-edit-booking.jsp?id=<%=booking.getId()%>" class="btn btn-info">Edit</a></td>
-              <td><button class="btn btn-danger" id="deleteBooking"<%=booking.getId() %>>Delete</button></td>
+              <td><a href="student-delete-booking.jsp?id=<%=booking.getId()%>" class="btn btn-danger">Delete</button></td>
             </tr>
           <% } %>
         </tbody>

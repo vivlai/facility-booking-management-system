@@ -22,28 +22,28 @@ import util.DateUtil;
 
 @WebServlet("/DeleteBookingController")
 public class DeleteBookingController extends HttpServlet {
-	
+
 	/*
-	 * <form action="AddBookingController" method="post">
-	 *     Start Date: <input type="date" name="startDate"/> <br/>
-	 *     End Date: <input type="date" name="endDate"/> <br/>
-	 *     Location: <select name="location">
-	 *         <% for (Location location : LocationDao.getInstance().getAllLocations()) { %>
-	 *             <option value="<%=location.getId()%>"><%=location.getName()%></option> 
-	 *         <% } %>
-	 *     </select> <br/>
-	 *     Additional Persons (comma separated email list): <input type="text" name="persons"/>
-	 *     <input type="submit" value="submit"/>
+	 * <form action="AddBookingController" method="post"> Start Date: <input
+	 * type="date" name="startDate"/> <br/> End Date: <input type="date"
+	 * name="endDate"/> <br/> Location: <select name="location"> <% for
+	 * (Location location : LocationDao.getInstance().getAllLocations()) { %>
+	 * <option value="<%=location.getId()%>"><%=location.getName()%></option> <%
+	 * } %> </select> <br/> Additional Persons (comma separated email list):
+	 * <input type="text" name="persons"/> <input type="submit" value="submit"/>
 	 * </form>
 	 */
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int id = (Integer)request.getSession().getAttribute("bookingId");
-		Booking deletingBooking = (Booking) BookingDao.getInstance().getBooking(id);
-		BookingDao.getInstance().deleteBooking(deletingBooking);	
-
-		// Should redirect to home page?
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String state = (String) request.getParameter("optionsRadios");
+		System.out.println(state);
+		if (!state.equals("no")) {
+			int id = Integer.parseInt(state);
+			System.out.println("id="+id);
+			Booking deletingBooking = (Booking) BookingDao.getInstance().getBooking(id);
+			BookingDao.getInstance().deleteBooking(deletingBooking);
+		}
 		response.sendRedirect("student.jsp");
 	}
 }

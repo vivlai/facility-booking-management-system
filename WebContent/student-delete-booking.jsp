@@ -100,10 +100,10 @@
 				</tbody>
 			</table>
 			<p>Once you delete, the location might be booked by other user.</p>
-			<form>
+			<form action="DeleteBookingController" method="post">
 				<div class="radio">
 					<label> <input type="radio" name="optionsRadios"
-						id="optionsRadios1" value="yes"> Yes, I want to cancel
+						id="optionsRadios1" value=<%=bookingId%>> Yes, I want to cancel
 						this booking.
 					</label>
 				</div>
@@ -113,6 +113,7 @@
 						mind.
 					</label>
 				</div>
+				<button type="submit" class="btn btn-info">Submit</button>
 			</form>
 		</div>
 	</div>
