@@ -12,7 +12,7 @@
   <div class="container">
     <div class="span12">
       <h2>Facility Booking Management System</h2><br>
-      <form action="">
+      <form action="AddPersonController" method="post" onsubmit="return checkPW()">
         <% String errorMessage = request.getParameter("error"); %>
         <% if (errorMessage != null) { %>
           <label><%=errorMessage%></label> <br><br>
@@ -23,11 +23,12 @@
         <label>Confirm password: </label> <input type="password" name="confirmPassword" id="confirmPassword" /><br>
 
         <br><br>
-        <button class="btn btn-primary">Create</button><br>
+        <button class="btn btn-primary" type="submit">Create</button><br>
     </form>
     </div>
   </div>
-
+  
+  <script src="Util.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootflat/2.0.4/js/jquery.fs.selecter.min.js"></script>
