@@ -218,8 +218,51 @@ public class BookingDao {
             rs = preparedStatement.executeQuery();
             while (rs.next()) {
             	Booking booking = getBooking( rs.getInt(1) );
-            	System.out.println(rs.getInt(1)); // <-- print ID
-            	System.out.println(booking);
+            	//System.out.println(rs.getInt(1)); // <-- print ID
+            	//System.out.println(booking);
+            	bookings.add(booking);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+        	try {
+        		if (rs != null) rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        	
+        	try {
+        		if (preparedStatement != null) preparedStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        	
+        	try {
+        		if (conn != null) conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        }
+		
+        return bookings;
+	}
+	
+	public ArrayList<Booking> getBookingsByLocation(int id) {
+		Connection conn = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		ArrayList<Booking> bookings = new ArrayList<Booking>();
+		
+        try {
+        	conn = DBUtil.getConnection();
+        	String query = "select * from booking where locationId=?";
+            preparedStatement = conn.prepareStatement( query, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setInt( 1, id );
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+            	Booking booking = getBooking( rs.getInt(1) );
+            	//System.out.println(rs.getInt(1)); // <-- print ID
+            	//System.out.println(booking);
             	bookings.add(booking);
             }
         } catch (SQLException e) {
