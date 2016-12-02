@@ -4,11 +4,8 @@
 <%@page import="javax.servlet.http.HttpServletRequest"%>
 <%@page import="javax.servlet.http.HttpServletResponse"%>
 <%@page import="java.util.ArrayList" %>
-<%@page import="model.Booking"%>
 <%@page import="model.Location"%>
-<%@page import="model.Person"%>
-<%@page import="dao.PersonDao"%>
-<%@page import="dao.BookingDao"%>
+<%@page import="dao.LocationDao"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -40,10 +37,8 @@
          <li class="dropdown">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Actions <span class="caret"></span></a>
            <ul class="dropdown-menu">
-             <li><a href="admin-make-booking.jsp">Make Booking</a></li>
-             <li><a href="#">Add Location</a></li>
-             <li><a href="#">View Location</a></li>
-             <li><a href="#">Delete Student Account</a></li>
+             <li><a href="student-make-booking.jsp">Make Booking</a></li>
+             <li><a href="student-view-location.jsp">View Locations Schedule</a></li>
            </ul>
          </li>
        </ul>
@@ -58,41 +53,31 @@
   
   <div class="container">
     <div class="span12">
-      <h2>Testing</h2><br>
+      <h2>View Location Schedule</h2><br>
       <% 
       if (request.getSession().getAttribute("user") == null) {
         response.sendRedirect("login.jsp?error=Invalid credentials");
     return;
       } 
       
-      Person person = (Person) request.getSession().getAttribute("user");
-      int personId = person.getId();
-      ArrayList<Booking> bookings = BookingDao.getInstance().getBookingsByPerson(personId);
+      //Person person = (Person) request.getSession().getAttribute("user");
+      //int personId = person.getId();
+      ArrayList<Location> locations = LocationDao.getInstance().getAllLocations();
       
       %>
       
       <table class="table table-hover">
         <thead>
           <tr>
-            <th>Booking ID</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Location</th>
-            <th></th>
-            <th></th>
+            <th>Location ID</th>
+            <th>Location Name</th>
           </tr>
         </thead>
         <tbody>
-          <% for (Booking booking : bookings) { %>
-          <% Location location = booking.getLocation(); %>
+          <% for (Location location : locations) { %>
             <tr>
-              <td><%=booking.getId() %></td>
-              <td><%=booking.getStartDate() %></td>
-              <td><%=booking.getEndDate() %></td>
-              <td><%=location.getLocationName() %></td>
-              <!-- <td><button class="btn btn-info" id="editBooking"<%=booking.getId() %>>Edit</button></td>  -->
-              <td><a href="admin-edit-booking.jsp?id=<%=booking.getId()%>" class="btn btn-info">Edit</a></td>
-              <td><button class="btn btn-danger" id="deleteBooking"<%=booking.getId() %>>Delete</button></td>
+              <td><%=location.getId() %></td>
+              <td><a href="student-location-schedule.jsp?id=<%=location.getId() %>"><%=location.getLocationName() %></a></td>
             </tr>
           <% } %>
         </tbody>

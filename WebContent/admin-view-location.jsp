@@ -81,8 +81,7 @@
 			<%
 				if (message != null) {
 			%>
-			<label><%=message%></label> <br>
-			<br>
+			<label><%=message%></label> <br> <br>
 			<%
 				}
 			%>
@@ -101,7 +100,10 @@
 					<tr>
 						<td><%=location.getId()%></td>
 						<td><a href="location-schedule.jsp?id=<%=location.getId()%>"><%=location.getLocationName()%></a></td>
-						<td><a href="admin-delete-location.jsp?id=<%=location.getId()%>" class="btn btn-info">Delete</button></td>
+						<td><a
+							href="admin-delete-location.jsp?id=<%=location.getId()%>"
+							class="btn btn-danger">Delete
+								</button></td>
 					</tr>
 					<%
 						}

@@ -1,15 +1,22 @@
+<%@page import="javax.servlet.ServletException"%>
+<%@page import="javax.servlet.annotation.WebServlet"%>
+<%@page import="javax.servlet.http.HttpServlet"%>
+<%@page import="javax.servlet.http.HttpServletRequest"%>
+<%@page import="javax.servlet.http.HttpServletResponse"%>
+<%@page import="java.util.ArrayList" %>
+<%@page import="model.Booking"%>
 <%@page import="model.Location"%>
+<%@page import="model.Person"%>
 <%@page import="dao.LocationDao"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="dao.BookingDao"%>
 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker-standalone.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.css">
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootflat/2.0.4/css/bootflat.min.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootflat/2.0.4/css/bootflat.min.css">
   <title>Facility Booking Management System</title>
 </head>
 
@@ -24,7 +31,7 @@
          <span class="icon-bar"></span>
          <span class="icon-bar"></span>
        </button>
-       <a class="navbar-brand" href="student.jsp">FBMS</a>
+       <a class="navbar-brand" href="#">FBMS</a>
      </div>
   
      <!-- Collect the nav links, forms, and other content for toggling -->
@@ -33,8 +40,10 @@
          <li class="dropdown">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Actions <span class="caret"></span></a>
            <ul class="dropdown-menu">
-             <li><a href="student-make-booking.jsp">Make Booking</a></li>
-             <li><a href="student-view-location.jsp">View Locations Schedule</a></li>
+             <li><a href="admin-make-booking.jsp">Make Booking</a></li>
+             <li><a href="#">Add Location</a></li>
+             <li><a href="#">View Location</a></li>
+             <li><a href="#">Delete Student Account</a></li>
            </ul>
          </li>
        </ul>
@@ -49,20 +58,23 @@
   
   <div class="container">
     <div class="span12">
-      <h2>Booking Confirmation</h2><br>
-        <% 
-        String stringId = request.getParameter("id"); 
-    	int bookingId = 0;
-    	if (stringId != null){
-    	    bookingId = Integer.parseInt(stringId);
-    	}
-        String startDate = request.getParameter("startDate"); 
-        String endDate = request.getParameter("endDate"); 
-        String location = request.getParameter("location"); 
-        if (stringId == null) 
-        %>
-        
-        <table class="table table-hover">
+      <% 
+      if (request.getSession().getAttribute("user") == null) {
+        response.sendRedirect("login.jsp?error=Invalid credentials");
+    return;
+      } 
+      
+      //Person person = (Person) request.getSession().getAttribute("user");
+      //int personId = person.getId();
+      String locationStringId = request.getParameter("id");
+      int locationId = Integer.parseInt(locationStringId);
+      ArrayList<Booking> bookings = BookingDao.getInstance().getBookingsByLocation(locationId);
+      
+      %>
+      <h2><%=LocationDao.getInstance().getLocation(locationId).getLocationName() %> Schedule</h2><br>
+      
+      
+      <table class="table table-hover">
         <thead>
           <tr>
             <th>Booking ID</th>
@@ -74,16 +86,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><%=bookingId %></td>
-            <td><%=startDate %></td>
-            <td><%=endDate %></td>
-            <td><%=location %></td>
-            <td><a href="student-edit-booking.jsp?id=<%=bookingId %>" class="btn btn-info">Edit</button></td>
-            <td><a href="student-delete-booking.jsp?id=<%=bookingId %>" class="btn btn-danger">Delete</button></td>
-          </tr>
+          <% for (Booking booking : bookings) { %>
+          <% Location location = booking.getLocation(); %>
+            <tr>
+              <td><%=booking.getId() %></td>
+              <td><%=booking.getStartDate() %></td>
+              <td><%=booking.getEndDate() %></td>
+              <td><%=location.getLocationName() %></td>
+              <td><a href="admin-edit-booking.jsp?id=<%=booking.getId()%>" class="btn btn-info">Edit</a></td>
+              <td><a href="#" class="btn btn-danger" id="deleteBooking"<%=booking.getId() %>>Delete</a></td>
+            </tr>
+          <% } %>
         </tbody>
       </table>
+
     </div>
   </div>
   
