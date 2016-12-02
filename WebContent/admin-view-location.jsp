@@ -80,8 +80,8 @@
           <% for (Location location : locations) { %>
             <tr>
               <td><%=location.getId() %></td>
-              <td><a href="location-schedule.jsp?id=<%=location.getId() %>"><%=location.getLocationName() %></a></td>
-              <td><button class="btn btn-danger" id="deleteLocation"<%=location.getId() %>>Delete</button></td>
+              <td><a href="admin-location-schedule.jsp?id=<%=location.getId() %>"><%=location.getLocationName() %></a></td>
+              <td><a href="#" class="btn btn-danger" id="deleteLocation"<%=location.getId() %>>Delete</a></td>
             </tr>
           <% } %>
         </tbody>

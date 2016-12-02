@@ -7,7 +7,7 @@
 <%@page import="model.Booking"%>
 <%@page import="model.Location"%>
 <%@page import="model.Person"%>
-<%@page import="dao.PersonDao"%>
+<%@page import="dao.LocationDao"%>
 <%@page import="dao.BookingDao"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -58,18 +58,21 @@
   
   <div class="container">
     <div class="span12">
-      <h2>Testing</h2><br>
       <% 
       if (request.getSession().getAttribute("user") == null) {
         response.sendRedirect("login.jsp?error=Invalid credentials");
     return;
       } 
       
-      Person person = (Person) request.getSession().getAttribute("user");
-      int personId = person.getId();
-      ArrayList<Booking> bookings = BookingDao.getInstance().getBookingsByPerson(personId);
+      //Person person = (Person) request.getSession().getAttribute("user");
+      //int personId = person.getId();
+      String locationStringId = request.getParameter("id");
+      int locationId = Integer.parseInt(locationStringId);
+      ArrayList<Booking> bookings = BookingDao.getInstance().getBookingsByLocation(locationId);
       
       %>
+      <h2><%=LocationDao.getInstance().getLocation(locationId).getLocationName() %> Schedule</h2><br>
+      
       
       <table class="table table-hover">
         <thead>
@@ -90,9 +93,8 @@
               <td><%=booking.getStartDate() %></td>
               <td><%=booking.getEndDate() %></td>
               <td><%=location.getLocationName() %></td>
-              <!-- <td><button class="btn btn-info" id="editBooking"<%=booking.getId() %>>Edit</button></td>  -->
               <td><a href="admin-edit-booking.jsp?id=<%=booking.getId()%>" class="btn btn-info">Edit</a></td>
-              <td><button class="btn btn-danger" id="deleteBooking"<%=booking.getId() %>>Delete</button></td>
+              <td><a href="#" class="btn btn-danger" id="deleteBooking"<%=booking.getId() %>>Delete</a></td>
             </tr>
           <% } %>
         </tbody>
