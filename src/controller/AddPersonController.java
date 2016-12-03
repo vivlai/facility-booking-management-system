@@ -40,6 +40,7 @@ public class AddPersonController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = (String) request.getParameter("email");
 		String pw = (String) request.getParameter("password");
+		
 		Person newUser = new Person(0,email,pw,"student");
 		PersonDao.getInstance().addPerson(newUser);
 		

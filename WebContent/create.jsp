@@ -24,6 +24,7 @@
 
         <br><br>
         <button class="btn btn-primary" type="submit">Create</button><br>
+        <a href="login.jsp">Back to login</a><br>
     </form>
     </div>
   </div>
