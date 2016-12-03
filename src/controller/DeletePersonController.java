@@ -56,7 +56,7 @@ public class DeletePersonController extends HttpServlet {
 		Person person = PersonDao.getInstance().getPerson(email);
 		
 		if (person == null) {
-			response.sendRedirect("admin-delete-account.jsp?error=The email " + email + " does not exist.");
+			response.sendRedirect("admin-delete-account.jsp?message=The email " + email + " does not exist.");
 			return;
 		}
 		

@@ -57,6 +57,11 @@
   <div class="container">
     <div class="span12">
       <h2>My Bookings</h2><br>
+      <% String errorMessage = request.getParameter("error"); %>
+        <% if (errorMessage != null) { %>
+        	<label><%=errorMessage%></label> <br><br>
+        <%  } %> 
+        
       <% 
       if (request.getSession().getAttribute("user") == null) {
         response.sendRedirect("login.jsp?error=Invalid credentials");

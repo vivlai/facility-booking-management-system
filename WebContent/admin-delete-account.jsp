@@ -52,6 +52,11 @@
         <% if (errorMessage != null) { %>
         	<label><%=errorMessage%></label> <br><br>
         <% } %> 
+        
+        <% String message = request.getParameter("message"); %>
+        <% if (message != null) { %>
+        	<label><%=message%></label> <br><br>
+        <% } %> 
         <label>Email: </label> <input type="text" name="email" id="email" /><br>
 
         <br><br>
