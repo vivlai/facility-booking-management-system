@@ -56,7 +56,7 @@
 
         <br><br>
         <a href="admin.jsp" class="btn btn-primary">Cancel</a>
-        <button class="btn btn-danger">Delete</button><br>
+        <button class="btn btn-danger" type="submit">Delete</button><br>
     </form>
     </div>
   </div>

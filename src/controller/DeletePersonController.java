@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.apple.eawt.AppEvent.SystemSleepEvent;
+
 import dao.BookingDao;
 import dao.LocationDao;
 import dao.PersonDao;
@@ -45,18 +47,20 @@ public class DeletePersonController extends HttpServlet {
 			return;
 		}
 		
-		if (loggedInUser.getRole() != "admin" ) {
+		if (!loggedInUser.getRole().equals("admin")) {
 			response.sendRedirect("student.jsp?error=You are not admin");
 			return;
 		}
 		
-		String email = request.getParameter("email");
+		String email = (String) request.getParameter("email");
 		Person person = PersonDao.getInstance().getPerson(email);
+		
 		if (person == null) {
 			response.sendRedirect("admin-delete-account.jsp?error=The email " + email + " does not exist.");
 			return;
 		}
 		
 		PersonDao.getInstance().deletePerson(person);
+		response.sendRedirect("admin-delete-account.jsp?error=The user " + email + " deleted.");
 	}
 }
