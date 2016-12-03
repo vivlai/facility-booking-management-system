@@ -48,7 +48,7 @@
 						<li><a href="admin-make-booking.jsp">Make Booking</a></li>
 						<li><a href="admin-add-location.jsp">Add Location</a></li>
 						<li><a href="admin-view-location.jsp">View Location</a></li>
-						<li><a href="#">Delete Student Account</a></li>
+						<li><a href="admin-delete-account.jsp">Delete Student Account</a></li>
 					</ul></li>
 			</ul>
 

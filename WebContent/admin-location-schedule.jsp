@@ -40,10 +40,10 @@
          <li class="dropdown">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Actions <span class="caret"></span></a>
            <ul class="dropdown-menu">
-             <li><a href="admin-make-booking.jsp">Make Booking</a></li>
-             <li><a href="#">Add Location</a></li>
-             <li><a href="#">View Location</a></li>
-             <li><a href="#">Delete Student Account</a></li>
+				<li><a href="admin-make-booking.jsp">Make Booking</a></li>
+				<li><a href="admin-add-location.jsp">Add Location</a></li>
+				<li><a href="admin-view-location.jsp">View Location</a></li>
+				<li><a href="admin-delete-account.jsp">Delete Student Account</a></li>
            </ul>
          </li>
        </ul>
