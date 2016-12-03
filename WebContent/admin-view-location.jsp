@@ -63,7 +63,7 @@
 
 	<div class="container">
 		<div class="span12">
-			<h2>View Location Schedule</h2>
+			<h2>View Locations Schedule</h2>
 			<br>
 			<%
 				if (request.getSession().getAttribute("user") == null) {
