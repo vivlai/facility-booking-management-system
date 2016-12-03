@@ -172,7 +172,7 @@ public class LocationDao {
 		
         try {
         	conn = DBUtil.getConnection();
-        	String query = "select * from location where locationName=?";
+        	String query = "select * from location where name=?";
             preparedStatement = conn.prepareStatement( query, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString( 1, locationName );
             rs = preparedStatement.executeQuery();
