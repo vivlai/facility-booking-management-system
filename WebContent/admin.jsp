@@ -49,7 +49,7 @@
        </ul>
        
        <ul class="nav navbar-nav navbar-right">
-         <li><a href="#">Log out</a></li>
+         <li><a href="logout.jsp">Log out</a></li>
        </ul>
        
      </div><!-- /.navbar-collapse -->
