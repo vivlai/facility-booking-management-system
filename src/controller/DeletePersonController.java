@@ -61,6 +61,6 @@ public class DeletePersonController extends HttpServlet {
 		}
 		
 		PersonDao.getInstance().deletePerson(person);
-		response.sendRedirect("admin-delete-account.jsp?error=The user " + email + " deleted.");
+		response.sendRedirect("admin-delete-account.jsp?error=The user " + email + " is deleted.");
 	}
 }
