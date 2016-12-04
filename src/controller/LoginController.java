@@ -34,6 +34,15 @@ public class LoginController extends HttpServlet {
 		Person person = PersonDao.getInstance().getPerson(email);
 		
 		// error checking
+		String temp = email.substring(email.indexOf("@") + 1);
+		String serverName = temp.substring(0, temp.length()); 
+		System.out.println("serverName: " + serverName);
+		if (!serverName.equals("colorado.edu")) {
+			System.out.println("server issues");
+			response.sendRedirect("login.jsp?error=Server has to be colorado.edu");
+		    return;
+		}
+		
 		try {
 			System.out.println(person.getPassword());
 		} catch (NullPointerException e) {

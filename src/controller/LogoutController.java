@@ -47,12 +47,14 @@ public class LogoutController extends HttpServlet {
 
 		String state = (String) request.getParameter("optionsRadios");
 		System.out.println(state);
-		if (!state.equals("no")) {
-			request.getSession().removeAttribute("User");
+		
+		if (state.equals("yes")) {
+			request.getSession().removeAttribute("user");
 			request.getSession().invalidate();
 			response.sendRedirect("login.jsp?message=You have logged out successfully");
 			return;
 		}
+		
 		if (loggedInUser.getRole().equals("admin"))
 			response.sendRedirect("admin.jsp");
 		else
