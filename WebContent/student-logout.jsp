@@ -21,7 +21,7 @@
          <span class="icon-bar"></span>
          <span class="icon-bar"></span>
        </button>
-       <a class="navbar-brand" href="#">FBMS</a>
+       <a class="navbar-brand" href="student.jsp">FBMS</a>
      </div>
   
      <!-- Collect the nav links, forms, and other content for toggling -->
@@ -30,16 +30,14 @@
          <li class="dropdown">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Actions <span class="caret"></span></a>
            <ul class="dropdown-menu">
-				<li><a href="admin-make-booking.jsp">Make Booking</a></li>
-				<li><a href="admin-add-location.jsp">Add Location</a></li>
-				<li><a href="admin-view-location.jsp">View Location</a></li>
-				<li><a href="admin-delete-account.jsp">Delete Student Account</a></li>
+             <li><a href="student-make-booking.jsp">Make Booking</a></li>
+             <li><a href="student-view-location.jsp">View Locations Schedule</a></li>
            </ul>
          </li>
        </ul>
        
        <ul class="nav navbar-nav navbar-right">
-         <li><a href="logout.jsp">Log out</a></li>
+         <li><a href="student-logout.jsp">Log out</a></li>
        </ul>
        
      </div><!-- /.navbar-collapse -->
@@ -50,21 +48,21 @@
     <div class="span12">
       <h2>Logout confirm</h2><br>
         <br><br>
-			<p>Are you sure you want to logout?</p>
-			<form action="LogoutController" method="post">
-				<div class="radio">
-					<label> 
-					  	<input type="radio" name="optionsRadios" id="optionsRadios1" value="yes" /> Yes, I want to logout.
-					</label>
-				</div>
-				<div class="radio">
-					<label> 
-						<input type="radio" name="optionsRadios" id="optionsRadios2" value="no" checked> No, I change my mind.
-					</label>
-				</div>
-				<button type="submit" class="btn btn-info">Submit</button>
-			</form>
-    </form>
+      <p>Are you sure you want to logout?</p>
+      <form action="LogoutController" method="post">
+        <div class="radio">
+          <label> 
+              <input type="radio" name="optionsRadios" id="optionsRadios1" value="yes" /> Yes, I want to logout.
+          </label>
+        </div>
+        <div class="radio">
+          <label> 
+            <input type="radio" name="optionsRadios" id="optionsRadios2" value="no" checked> No, I change my mind.
+          </label>
+        </div>
+        <br><br>
+        <button type="submit" class="btn btn-info">Submit</button>
+      </form>
     </div>
   </div>
   

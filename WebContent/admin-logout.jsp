@@ -1,15 +1,5 @@
-<%@page import="javax.servlet.ServletException"%>
-<%@page import="javax.servlet.annotation.WebServlet"%>
-<%@page import="javax.servlet.http.HttpServlet"%>
-<%@page import="javax.servlet.http.HttpServletRequest"%>
-<%@page import="javax.servlet.http.HttpServletResponse"%>
-<%@page import="java.util.ArrayList" %>
-<%@page import="model.Booking"%>
 <%@page import="model.Location"%>
-<%@page import="model.Person"%>
-<%@page import="dao.PersonDao"%>
-<%@page import="dao.BookingDao"%>
-
+<%@page import="dao.LocationDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -42,7 +32,7 @@
            <ul class="dropdown-menu">
 				<li><a href="admin-make-booking.jsp">Make Booking</a></li>
 				<li><a href="admin-add-location.jsp">Add Location</a></li>
-				<li><a href="admin-view-location.jsp">View Locations Schedule</a></li>
+				<li><a href="admin-view-location.jsp">View Location</a></li>
 				<li><a href="admin-delete-account.jsp">Delete Student Account</a></li>
            </ul>
          </li>
@@ -58,46 +48,23 @@
   
   <div class="container">
     <div class="span12">
-      <h2>My Bookings</h2><br>
-      <% 
-      if (request.getSession().getAttribute("user") == null) {
-        response.sendRedirect("login.jsp?error=Invalid credentials");
-    return;
-      } 
-      
-      Person person = (Person) request.getSession().getAttribute("user");
-      int personId = person.getId();
-      ArrayList<Booking> bookings = BookingDao.getInstance().getBookingsByPerson(personId);
-      
-      %>
-      
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Booking ID</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Location</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% for (Booking booking : bookings) { %>
-          <% Location location = booking.getLocation(); %>
-            <tr>
-              <td><%=booking.getId() %></td>
-              <td><%=booking.getStartDate() %></td>
-              <td><%=booking.getEndDate() %></td>
-              <td><%=location.getLocationName() %></td>
-              <!-- <td><button class="btn btn-info" id="editBooking"<%=booking.getId() %>>Edit</button></td>  -->
-              <td><a href="admin-edit-booking.jsp?id=<%=booking.getId()%>" class="btn btn-info">Edit</a></td>
-              <td><a href="student-delete-booking.jsp?id=<%=booking.getId()%>" class="btn btn-danger">Delete</button></td>
-            </tr>
-          <% } %>
-        </tbody>
-      </table>
-
+      <h2>Logout confirm</h2><br>
+        <br><br>
+			<p>Are you sure you want to logout?</p>
+			<form action="LogoutController" method="post">
+				<div class="radio">
+					<label> 
+					  	<input type="radio" name="optionsRadios" id="optionsRadios1" value="yes" /> Yes, I want to logout.
+					</label>
+				</div>
+				<div class="radio">
+					<label> 
+						<input type="radio" name="optionsRadios" id="optionsRadios2" value="no" checked> No, I change my mind.
+					</label>
+				</div>
+				<button type="submit" class="btn btn-info">Submit</button>
+			</form>
+    </form>
     </div>
   </div>
   
