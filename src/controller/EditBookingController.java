@@ -50,16 +50,17 @@ public class EditBookingController extends HttpServlet {
 		Timestamp startDate = DateUtil.convertStringToTimestamp( request.getParameter("startDate") );
 		Timestamp endDate = DateUtil.convertStringToTimestamp( request.getParameter("endDate") );
 		Location location = LocationDao.getInstance().getLocation(Integer.parseInt(request.getParameter("location")));
+		
 		ArrayList<Person> persons = new ArrayList<Person>();
 		String[] personEmails = request.getParameter("persons").split(",");
 		for (String email : personEmails) {
+			email = email.trim();
+			//System.out.println("email from req: " + email);
 			Person person = PersonDao.getInstance().getPerson(email);
-			// to-do: check if person exists
 			if (person == null) {
 				response.sendRedirect("create.jsp?error=The email " + email + " does not exist.");
 				return;
 			} 
-			
 			persons.add(PersonDao.getInstance().getPerson(email));
 		}
 		persons.add(loggedInUser);

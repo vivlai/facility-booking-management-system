@@ -292,6 +292,7 @@ public class BookingDao {
 	
 	public void updateBooking(Booking booking) {
 		Connection conn = null;
+		ArrayList<PreparedStatement> preparedStatements = new ArrayList<PreparedStatement>();
 		PreparedStatement preparedStatement = null;
 		
         try {
@@ -303,6 +304,23 @@ public class BookingDao {
             preparedStatement.setInt( 3, booking.getLocation().getId() );
             preparedStatement.setInt( 4, booking.getId() );
             preparedStatement.executeUpdate();
+            
+            // delete people that has bookingId=? in person_booking
+            query = "delete from person_booking where bookingId=?";
+            preparedStatement = conn.prepareStatement( query );
+            preparedStatement.setInt( 1, booking.getId() );
+            preparedStatement.executeUpdate();
+            
+            // add people to person_booking
+            ArrayList<Person> persons = booking.getPersons();
+            for (Person person : persons) {
+            	query = "insert into person_booking (personId, bookingId) values (?,?)";
+            	preparedStatement = conn.prepareStatement( query );
+                preparedStatements.add(preparedStatement);
+                preparedStatement.setInt( 1, person.getId() );
+                preparedStatement.setInt( 2, booking.getId() );
+                preparedStatement.executeUpdate();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -311,6 +329,14 @@ public class BookingDao {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+        	
+        	for (PreparedStatement ps : preparedStatements) {
+	        	try {
+	        		if (preparedStatement != null) preparedStatement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+        	}
         	
         	try {
         		if (conn != null) conn.close();
