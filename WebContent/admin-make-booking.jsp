@@ -24,7 +24,7 @@
          <span class="icon-bar"></span>
          <span class="icon-bar"></span>
        </button>
-       <a class="navbar-brand" href="#">FBMS</a>
+       <a class="navbar-brand" href="admin.jsp">FBMS</a>
      </div>
   
      <!-- Collect the nav links, forms, and other content for toggling -->
