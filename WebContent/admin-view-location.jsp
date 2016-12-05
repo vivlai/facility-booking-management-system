@@ -99,7 +99,7 @@
 					%>
 					<tr>
 						<td><%=location.getId()%></td>
-						<td><a href="location-schedule.jsp?id=<%=location.getId()%>"><%=location.getLocationName()%></a></td>
+						<td><a href="admin-location-schedule.jsp?id=<%=location.getId()%>"><%=location.getLocationName()%></a></td>
 						<td><a
 							href="admin-delete-location.jsp?id=<%=location.getId()%>"
 							class="btn btn-danger">Delete
